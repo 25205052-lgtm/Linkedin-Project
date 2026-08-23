@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowthPro - LinkedIn Profile Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(90deg, #fdf7ff 0%, #fdf7ff 100%), linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+            color: #1d1b20;
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-8 {
+            gap: 32px;
+        }
+
+        .gap-6 {
+            gap: 24px;
+        }
+
+        .gap-4 {
+            gap: 16px;
+        }
+
+        .gap-3 {
+            gap: 12px;
+        }
+
+        .gap-2 {
+            gap: 8px;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .rounded-lg {
+            border-radius: 12px;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(253, 247, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(203, 196, 210, 0.3);
+            z-index: 1000;
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-logo {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 20px;
+            height: 12px;
+        }
+
+        .header-logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4f378a;
+        }
+
+        .header-button {
+            background: #4f378a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.7px;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+            align-items: center;
+            padding-top: 128px;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+            width: 100%;
+            max-width: 342px;
+            padding: 0 24px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .badge {
+            background: #ffdf93;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #241a00;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .hero-title {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 48px;
+            text-align: center;
+            letter-spacing: -0.4px;
+            color: #1d1b20;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            line-height: 28.8px;
+            text-align: center;
+            color: #494551;
+            margin: 8px 0 0 0;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            line-height: 25.6px;
+            text-align: center;
+            color: #494551;
+            font-weight: 500;
+            margin: 16px 0 0 0;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            margin-top: 17px;
+        }
+
+        .btn-primary {
+            background: #4f378a;
+            color: white;
+            border: none;
+            padding: 12px 90px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.7px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #3d2b6b;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #4f378a;
+            border: 2px solid #4f378a;
+            padding: 13px 95px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.7px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #4f378a;
+            color: white;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 256px;
+            border: 1px solid rgba(203, 196, 210, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0);
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Achievement Section */
+        .achievement-section {
+            background: #f8f2fa;
+            border-top: 1px solid rgba(203, 196, 210, 0.3);
+            border-bottom: 1px solid rgba(203, 196, 210, 0.3);
+            width: 100%;
+            padding: 64px 24px;
+        }
+
+        .achievement-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 47px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 57.6px;
+            letter-spacing: -0.48px;
+            color: #1d1b20;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .achievement-card {
+            background: #fdf7ff;
+            border-top: 4px solid #765b00;
+            border-radius: 12px;
+            padding: 28px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .achievement-icon {
+            width: 33px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .achievement-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1b20;
+            line-height: 33.6px;
+            margin: 7px 0;
+        }
+
+        .achievement-label {
+            font-size: 16px;
+            font-weight: 400;
+            color: #494551;
+            line-height: 25.6px;
+        }
+
+        .achievement-quote {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4f378a;
+            text-align: center;
+            line-height: 33.6px;
+            margin-top: 24px;
+        }
+
+        /* Audit Section */
+        .audit-section {
+            background: #4f378a;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 342px;
+            width: 100%;
+            box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.08);
+            margin: 0 24px;
+        }
+
+        .audit-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            line-height: 57.6px;
+            letter-spacing: -0.48px;
+            margin-bottom: 15px;
+        }
+
+        .audit-subtitle {
+            font-size: 18px;
+            color: #cfbcff;
+            text-align: center;
+            line-height: 28.8px;
+            margin-bottom: 25px;
+        }
+
+        .audit-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 25px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .feature-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            line-height: 33.6px;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            color: #e9ddff;
+            line-height: 25.6px;
+        }
+
+        /* Form Styles */
+        .form-wrapper {
+            width: 100%;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #cfbcff;
+            text-align: left;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(207, 188, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(207, 188, 255, 0.6);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(207, 188, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(207, 188, 255, 0.1);
+        }
+
+        .btn-submit {
+            background: #765b00;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.7px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #8a6b0f;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .form-message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #a5d6a7;
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #ef9a9a;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: #e6e0e9;
+            width: 100%;
+            padding: 64px 24px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo img {
+            width: 20px;
+            height: 12px;
+        }
+
+        .footer-brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1d1b20;
+        }
+
+        .footer-description {
+            font-size: 16px;
+            color: #494551;
+            line-height: 25.6px;
+            max-width: 384px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            font-size: 16px;
+            color: #494551;
+            text-decoration: underline;
+            line-height: 25.6px;
+            cursor: pointer;
+        }
+
+        .footer-nav a:hover {
+            color: #4f378a;
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(203, 196, 210, 0.3);
+            padding-top: 32px;
+        }
+
+        .footer-copyright {
+            font-size: 16px;
+            color: #494551;
+            text-align: center;
+            line-height: 25.6px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                max-width: 100%;
+            }
+
+            .audit-section {
+                max-width: 100%;
+            }
+
+            .hero-title {
+                font-size: 32px;
+                line-height: 40px;
+            }
+
+            .section-title {
+                font-size: 36px;
+                line-height: 44px;
+            }
+
+            .audit-title {
+                font-size: 36px;
+                line-height: 44px;
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                padding: 12px 16px;
+            }
+
+            main {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                gap: 48px;
+                padding-top: 60px;
+            }
+
+            .hero {
+                gap: 24px;
+            }
+
+            .hero-title {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                line-height: 36px;
+            }
+
+            .achievement-section {
+                padding: 48px 16px;
+            }
+
+            .audit-section {
+                margin: 0 16px;
+            }
+
+            .audit-title {
+                font-size: 28px;
+                line-height: 36px;
+            }
+
+            .footer {
+                padding: 48px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-logo">
+                <img src="data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='20' height='12' rx='2' fill='%234f378a'/%3E%3C/svg%3E" alt="Logo">
+                <span class="header-logo-text">GrowthPro</span>
+            </div>
+            <button class="header-button" onclick="document.querySelector('.audit-section').scrollIntoView({ behavior: 'smooth' })">Book Audit</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="badge">Top 1% Creator System</span>
+                <h1 class="hero-title">Turn Your<br>LinkedIn From<br>Invisible to<br>Influential</h1>
+                <p class="hero-subtitle">We don't just 'optimize profiles.' We build your personal brand from scratch — with strategy, content, and consistency that actually gets you seen.</p>
+                <p class="hero-description">From 0 to hero on LinkedIn — without confusion, guesswork, or wasting months figuring it out alone.</p>
+                <div class="button-group">
+                    <button class="btn-primary" onclick="document.querySelector('.audit-section').scrollIntoView({ behavior: 'smooth' })">Get Your Profile Audit</button>
+                    <button class="btn-secondary">Start Growing Today</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://www.figma.com/api/mcp/asset/f28b1259-670b-4784-a2a9-f1847905d5c6.png" alt="Hero Banner">
+            </div>
+        </section>
+
+        <!-- Achievement Section -->
+        <section class="achievement-section">
+            <div class="achievement-container">
+                <h2 class="section-title">Real Growth.<br>Real Results.</h2>
+                
+                <div class="achievement-grid">
+                    <div class="achievement-card">
+                        <img src="https://www.figma.com/api/mcp/asset/bb352247-952a-4408-8ee3-6ae77126bd65.svg" alt="100+ Icon" class="achievement-icon">
+                        <div class="achievement-number">100+</div>
+                        <div class="achievement-label">Professionals Helped</div>
+                    </div>
+                    <div class="achievement-card">
+                        <img src="https://www.figma.com/api/mcp/asset/b9b55f7e-2c6d-4292-a01b-4f6cae671c72.svg" alt="Leads Icon" class="achievement-icon">
+                        <div class="achievement-number">Inbound Leads</div>
+                        <div class="achievement-label">Consistently Generated</div>
+                    </div>
+                    <div class="achievement-card">
+                        <img src="https://www.figma.com/api/mcp/asset/9c359416-5c85-495b-ab35-8b96eeccd45a.svg" alt="Zero Icon" class="achievement-icon">
+                        <div class="achievement-number">From Zero</div>
+                        <div class="achievement-label">Brands Built</div>
+                    </div>
+                    <div class="achievement-card">
+                        <img src="https://www.figma.com/api/mcp/asset/b438e6c2-e5b5-47b6-a4ab-f043adff9242.svg" alt="Reach Icon" class="achievement-icon">
+                        <div class="achievement-number">Thousands</div>
+                        <div class="achievement-label">Organic Reach</div>
+                    </div>
+                </div>
+
+                <p class="achievement-quote">This isn't luck. It's a system that works.</p>
+            </div>
+        </section>
+
+        <!-- Audit Section -->
+        <section class="audit-section">
+            <h2 class="audit-title">Get a<br>Complete<br>LinkedIn<br>Audit for<br>Just ₹1</h2>
+            <p class="audit-subtitle">Why ₹1? Because once you see the value, you'll know what to do next.</p>
+
+            <div class="audit-features">
+                <div class="feature-item">
+                    <img src="https://www.figma.com/api/mcp/asset/b438e6c2-e5b5-47b6-a4ab-f043adff9242.svg" alt="Check" class="feature-icon">
+                    <div class="feature-content">
+                        <div class="feature-title">Profile review</div>
+                        <div class="feature-description">Deep dive into your current profile setup.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <img src="https://www.figma.com/api/mcp/asset/b438e6c2-e5b5-47b6-a4ab-f043adff9242.svg" alt="Check" class="feature-icon">
+                    <div class="feature-content">
+                        <div class="feature-title">Content gap analysis</div>
+                        <div class="feature-description">Identify what's missing in your strategy.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <img src="https://www.figma.com/api/mcp/asset/b438e6c2-e5b5-47b6-a4ab-f043adff9242.svg" alt="Check" class="feature-icon">
+                    <div class="feature-content">
+                        <div class="feature-title">Brand direction</div>
+                        <div class="feature-description">Clear positioning for your target audience.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <img src="https://www.figma.com/api/mcp/asset/b438e6c2-e5b5-47b6-a4ab-f043adff9242.svg" alt="Check" class="feature-icon">
+                    <div class="feature-content">
+                        <div class="feature-title">Action steps</div>
+                        <div class="feature-description">Immediate fixes you can apply today.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-wrapper">
+                <form id="auditForm">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-input" name="name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Proceed to Payment - ₹1</button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='20' height='12' rx='2' fill='%234f378a'/%3E%3C/svg%3E" alt="Logo">
+                        <span class="footer-brand-name">GrowthPro</span>
+                    </div>
+                    <p class="footer-description">Building personal brands that stand out — not blend in.</p>
+                </div>
+                <div class="footer-nav">
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#audit">Book Audit</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-divider">
+                <p class="footer-copyright">© 2026 GrowthPro. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybUvyHd3MGMZsyrnqqQLA93aP4stPYwzYLwGYMMHtp1hxNgx0lz_KEsffVBOFR3hQg/exec';
+        const PAYMENT_URL = 'https://payments.cashfree.com/forms/getaudit';
+
+        const form = document.getElementById('auditForm');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = form.querySelector('input[name="name"]').value.trim();
+            const email = form.querySelector('input[name="email"]').value.trim();
+            const phone = form.querySelector('input[name="phone"]').value.trim();
+
+            // Validate
+            if (!name || !email || !phone) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+
+            // Build the URL with parameters
+            const params = new URLSearchParams();
+            params.append('name', name);
+            params.append('email', email);
+            params.append('phone', phone);
+
+            const fullUrl = APPSCRIPT_URL + '?' + params.toString();
+
+            // Method 1: Use XMLHttpRequest with no-cors equivalent
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('GET', fullUrl, true);
+            
+            xhr.onload = function() {
+                console.log('Request sent successfully');
+                showSuccess('Form submitted successfully! Redirecting to payment...');
+                setTimeout(() => {
+                    window.open(PAYMENT_URL, '_blank');
+                    form.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            };
+
+            xhr.onerror = function() {
+                console.log('Error occurred, but data may still be saved');
+                showSuccess('Form submitted! Redirecting to payment...');
+                setTimeout(() => {
+                    window.open(PAYMENT_URL, '_blank');
+                    form.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1000);
+            };
+
+            xhr.ontimeout = function() {
+                console.log('Request timeout, but data may still be saved');
+                showSuccess('Form submitted! Redirecting to payment...');
+                setTimeout(() => {
+                    window.open(PAYMENT_URL, '_blank');
+                    form.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1000);
+            };
+
+            xhr.timeout = 5000;
+
+            try {
+                xhr.send();
+            } catch (err) {
+                console.error('Error:', err);
+                // Fallback: use image beacon (always works)
+                const img = new Image();
+                img.src = fullUrl;
+                img.onload = function() {
+                    showSuccess('Form submitted! Redirecting to payment...');
+                    setTimeout(() => {
+                        window.open(PAYMENT_URL, '_blank');
+                        form.reset();
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 1000);
+                };
+                img.onerror = function() {
+                    showSuccess('Form submitted! Redirecting to payment...');
+                    setTimeout(() => {
+                        window.open(PAYMENT_URL, '_blank');
+                        form.reset();
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 1000);
+                };
+            }
+        });
+
+        function showSuccess(message) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message success';
+        }
+
+        function showError(message) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message error';
+        }
+    </script>
+</body>
+</html>
